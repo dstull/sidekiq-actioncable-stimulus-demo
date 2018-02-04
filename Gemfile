@@ -36,7 +36,8 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails', '~> 3.2'
 
 group :production do
-  gem 'pg'
+  gem 'pg', '0.21.0'
+  gem 'rails_12factor'
 end
 
 group :development, :test do
