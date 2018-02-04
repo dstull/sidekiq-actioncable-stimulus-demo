@@ -1,4 +1,4 @@
-# Stimulus + Select2 + Rails + Turbolinks Demo App
+# Stimulus + Select2 + Rails + Demo App
 
 * This app will demo the before and after of using Stimulus 
 * The without-stimulus branch is the before
