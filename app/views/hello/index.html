@@ -1,6 +1,10 @@
-<div class="page-header">
+<div class="page-header" data-controller="hello">
     <h1>People</h1>
-    <input id="table-filter" name="table-filter" type="search" />
+    <input id="table-filter"
+           name="table-filter"
+           type="search"
+           data-target="hello.filter"
+           data-action="keyup->hello#typeFilter"/>
 </div>
 <table class="table table-hover">
     <thead>
