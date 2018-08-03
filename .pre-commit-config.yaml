@@ -1,0 +1,15 @@
+---
+- repo: https://github.com/adrienverge/yamllint
+  rev: v1.11.1
+  hooks:
+    - id: yamllint
+- repo: https://github.com/pre-commit/mirrors-eslint
+  rev: 'v5.2.0'  # Use the sha / tag you want to point at
+  hooks:
+    - id: eslint
+      additional_dependencies:
+        - eslint@5.2.0
+        - babel-eslint
+        - eslint-plugin-import
+        - eslint-config-airbnb-base
+      exclude: '^config/webpack'

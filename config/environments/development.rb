@@ -1,5 +1,6 @@
 Rails.application.configure do
-    config.webpacker.check_yarn_integrity = true  # Settings specified here will take precedence over those in config/application.rb.
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = true
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -16,7 +17,7 @@ Rails.application.configure do
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
+    config.cache_store                = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
     }

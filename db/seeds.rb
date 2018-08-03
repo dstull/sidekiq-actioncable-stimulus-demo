@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+10.times.each do
+  Car.create(name: Faker::RockBand.unique.name,
+             make: Faker::Company.name,
+             color: Faker::Color.color_name,
+             model: Faker::Device.model_name)
+end
