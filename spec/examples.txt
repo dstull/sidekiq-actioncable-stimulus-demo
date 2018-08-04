@@ -1,0 +1,5 @@
+example_id                              | status | run_time        |
+--------------------------------------- | ------ | --------------- |
+./spec/models/driver_spec.rb[1:1:1]     | passed | 0.12888 seconds |
+./spec/workers/cars_worker_spec.rb[1:1] | passed | 0.00532 seconds |
+./spec/workers/cars_worker_spec.rb[1:2] | passed | 0.00664 seconds |

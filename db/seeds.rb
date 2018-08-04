@@ -7,8 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times.each do
-  Car.create(name: Faker::RockBand.unique.name,
+  car = Car.create(name: Faker::RockBand.unique.name,
              make: Faker::Company.name,
              color: Faker::Color.color_name,
              model: Faker::Device.model_name)
+  5.times.each do
+    Driver.create(name: Faker::Name.name,car_id: car.id)
+  end
 end

@@ -1,18 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <div class="page-header" data-controller="cars">
-  <h1>Cars <span class="badge" id="cars--count"><%= Car.count %></span></h1>
-  <input id="table-filter"
-         name="table-filter"
-         type="search"
-         data-target="cars.filter"
-         data-action="keyup->cars#typeFilter"/>
+  <h1>Cars <span class="badge cars--badge" id="cars--count"><%= Car.count %></span><span class="pull-right">Total Drivers <span class="badge cars--badge" id="cars--drivers-count"><%= Driver.joins(:car).count %></span></span></h1>
 </div>
 
 <table class="table table-hover">
   <thead>
   <tr>
     <th>Name</th>
+    <th>Drivers</th>
+    <th>Driver Changes</th>
     <th>Make</th>
     <th>Color</th>
     <th>Model</th>
@@ -22,8 +19,10 @@
 
   <tbody>
   <% @cars.each do |car| %>
-    <tr class="filterable-row" id="car_id_<%= car.id %>">
+    <tr id="car_id_<%= car.id %>">
       <td><%= car.name %></td>
+      <td><%= car.drivers.map(&:name).join(',') %></td>
+      <td><%= car.driver_changes %></td>
       <td><%= car.make %></td>
       <td><%= car.color %></td>
       <td><%= car.model %></td>

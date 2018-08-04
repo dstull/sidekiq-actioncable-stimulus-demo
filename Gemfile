@@ -41,6 +41,8 @@ gem 'pry-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'faker' # need this here so i can seed in production
+gem 'sidekiq'
+gem 'simple_form'
 
 group :production do
   gem 'pg', '0.21.0'
@@ -55,6 +57,10 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.7'
+  gem 'fivemat'
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
 end
 
 group :development do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_03_224324) do
+ActiveRecord::Schema.define(version: 2018_08_04_030137) do
 
   create_table "cars", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2018_08_03_224324) do
     t.string "model"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "driver_changes", default: 0
+  end
+
+  create_table "drivers", force: :cascade do |t|
+    t.string "name"
+    t.integer "car_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_drivers_on_car_id"
   end
 
 end

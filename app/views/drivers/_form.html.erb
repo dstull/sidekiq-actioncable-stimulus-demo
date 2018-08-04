@@ -1,0 +1,9 @@
+<%= simple_form_for(driver, html: { class: 'col-md-6' }) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name %>
+  <%= f.input :car_id, collection: Car.all %>
+
+  <%= f.button :submit, class: 'btn btn-primary' %>
+  <%= link_to 'Cancel', drivers_path, class: 'btn btn-default' %>
+<% end %>
