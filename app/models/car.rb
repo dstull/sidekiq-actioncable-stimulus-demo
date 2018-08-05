@@ -3,6 +3,10 @@ class Car < ApplicationRecord
 
   after_touch :update_driver_names
 
+  def drivers_list
+    drivers.pluck(:name).join(',')
+  end
+
   private
 
   def update_driver_names

@@ -1,4 +1,4 @@
-# Sidekiq + Stimulus + Rails + Demo App
+# Sidekiq + ActionCable + Stimulus + Rails + Demo App
 
 ## OSX 
 ### Install
