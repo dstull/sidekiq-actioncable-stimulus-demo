@@ -15,4 +15,6 @@
 * `foreman start`
 
 ### Testing
+* install chromedriver via `brew install chromedriver`
 * `rspec`
+* `rails test:system`
