@@ -1,15 +1,15 @@
 RSpec.describe CarsWorker, type: :worker do
   let(:driver) { create(:driver) }
-  let(:car) { driver.car }
+  let!(:car) { driver.car }
 
   it 'performs a job' do
-    expect { described_class.perform_async(driver.id) }.to change(described_class.jobs, :size).by(1)
+    expect { described_class.perform_async(car.id) }.to change(described_class.jobs, :size).by(1)
   end
 
   it 'updates the driver changes' do
     Sidekiq::Testing.inline! do
       expect do
-        described_class.perform_async(driver.id)
+        described_class.perform_async(car.id)
         car.reload
       end.to change(car, :driver_changes).by(1)
     end
@@ -21,7 +21,7 @@ RSpec.describe CarsWorker, type: :worker do
       broadcast_message  = { drivers: car.drivers_list, car_id: car.id, driver_changes: new_driver_changes }
 
       expect do
-        described_class.perform_async(driver.id)
+        described_class.perform_async(car.id)
       end.to have_broadcasted_to('cars').with(broadcast_message)
     end
   end

@@ -3,6 +3,7 @@ require 'selenium-webdriver'
 require 'capybara'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  ENV['RAILS_SYSTEM_TESTING_SCREENSHOT'] = 'inline'
 
   Capybara.register_driver :headless_chrome do |app|
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
