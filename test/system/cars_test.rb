@@ -2,48 +2,50 @@ require "application_system_test_case"
 
 class CarsTest < ApplicationSystemTestCase
   setup do
-    @car = cars(:one)
+    # rspec needs test setting and system tests need async
+    ActionCable::Server::Base.config.cable = { 'adapter' => 'async' }
   end
 
+  teardown do
+    ActionCable::Server::Base.config.cable = { 'adapter' => 'test' }
+  end
+
+  subject { CarsPage.new }
+
   test "visiting the index" do
-    visit cars_url
+    subject.visit_page
+
     assert_selector "h1", text: "Cars"
   end
 
-  test "creating a Car" do
-    visit cars_url
-    click_on "New Car"
+  test 'driver is added to car and then deleted' do
+    subject.visit_page
 
-    fill_in "Color", with: @car.color
-    fill_in "Make", with: @car.make
-    fill_in "Model", with: @car.model
-    fill_in "Name", with: @car.name
-    click_on "Create Car"
+    assert_equal subject.car.drivers_list, find("tr#car_id_#{subject.car.id} td.cars--drivers").text
 
-    assert_text "Car was successfully created"
-    click_on "Back"
-  end
-
-  test "updating a Car" do
-    visit cars_url
-    click_on "Edit", match: :first
-
-    fill_in "Color", with: @car.color
-    fill_in "Make", with: @car.make
-    fill_in "Model", with: @car.model
-    fill_in "Name", with: @car.name
-    click_on "Update Car"
-
-    assert_text "Car was successfully updated"
-    click_on "Back"
-  end
-
-  test "destroying a Car" do
-    visit cars_url
-    page.accept_confirm do
-      click_on "Destroy", match: :first
+    Sidekiq::Testing.inline! do
+      subject.add_driver
     end
 
-    assert_text "Car was successfully destroyed"
+    assert_equal subject.car.reload.drivers_list, find("tr#car_id_#{subject.car.id} td.cars--drivers").text
+
+    Sidekiq::Testing.inline! do
+      subject.remove_driver
+    end
+
+    assert_equal subject.car.drivers_list, find("tr#car_id_#{subject.car.id} td.cars--drivers").text
+  end
+
+  test 'driver name is changed' do
+    subject.add_driver.visit_page
+    sleep 1
+
+    assert_equal subject.car.drivers_list, find("tr#car_id_#{subject.car.id} td.cars--drivers").text
+
+    Sidekiq::Testing.inline! do
+      subject.change_driver
+    end
+
+    assert_equal subject.car.drivers_list, find("tr#car_id_#{subject.car.id} td.cars--drivers").text
   end
 end
